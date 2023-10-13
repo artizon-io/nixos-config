@@ -14,15 +14,15 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     # TODO: setup impermanence
     # impermanence.url = "github:nix-community/impermanence";
-    # hardware.url = "github:NixOS/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
   # Parameters: set of the input flakes' outputs
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
       user = "sam";
       system = "x86_64-linux";
@@ -59,7 +59,7 @@
           # https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules-parameters
 
           # An attribute set of module arguments that can be used in imports.
-          specialArgs = { inherit user system pkgs home-manager; };
+          specialArgs = { inherit user system pkgs inputs; };
 
           # A list of modules. These are merged together to form the final configuration.
           modules = [

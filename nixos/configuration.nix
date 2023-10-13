@@ -4,7 +4,7 @@
 # nixpkgs 23.05 nix modules options
 # https://search.nixos.org/options?channel=23.05
 
-{ config, options, pkgs, ... }:
+{ config, options, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -17,6 +17,8 @@
     ./modules/sound.nix
     ./modules/tablet.nix
     ./modules/user.nix
+    ./modules/keyring.nix
+    ./modules/bluetooth.nix
   ];
 
   # This value determines the NixOS release from which the default
@@ -37,6 +39,19 @@
 
   environment.systemPackages = with pkgs; [
     neovim
+    wget
+    git
+    curl 
+    fd
+    ripgrep
+    less
+    tree
+    bat
+    lf
+    file
+    fzf
+    killall
+    toybox  # Lightweight implementation of some Unix command line utils
   ];
 
   # Environment variables

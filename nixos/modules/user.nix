@@ -1,16 +1,12 @@
-{ config, options, pkgs, home-manager, user, ... }:
+{ config, options, pkgs, user, system, inputs, ... }:
 
 {
   imports = [
-    # home-manager.nixosModules.home-manager
+    # TODO: migrate to home-manager
+    # inputs.home-manager.nixosModules.home-manager
+    # TODO: run xremap as service
+    # inputs.xremap-flake.nixosModules.default
   ];
-
-  # TODO: migrate to home-manager
-  # home-manager = {
-  #   users = {
-  #     ${user} = {};
-  #   };
-  # };
 
   users.users = {
     ${user} = {
@@ -21,27 +17,15 @@
       ];
       initialPassword = "password";
       packages = with pkgs; [
-        wget
-        git
+        bottom
         croc
         zoxide
-        curl 
         zsh
         starship
         rustup
         gh
         supabase-cli
-        fd
-        fzf
-        ripgrep
-        less
-        lf
-        tree
-        bat
-        bottom
-        file
-        killall
-        # toybox  # Lightweight implementation of some Unix command line utils
+        inputs.xremap-flake.packages.${system}.default
 
         # Wayland
         waybar  # Status bar
@@ -51,7 +35,9 @@
         networkmanagerapplet  # Network manager applet
         grim  # Screenshot
         slurp  # Select region (for e.g. screenshot)
-        wl-clipboard  # Clipboard
+        wl-clipboard  # Clipboard CLI
+        cliphist # Clipboard manager
+        wlsunset # Day/night gamma adjustment
 
         # Applications
         brave

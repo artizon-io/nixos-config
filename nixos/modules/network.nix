@@ -26,4 +26,8 @@
 
   # Tailscale
   services.tailscale.enable = true;
+
+  # Disable NetworkManager-wait-online.service
+  # https://man.archlinux.org/man/NetworkManager-wait-online.service.8.en
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
