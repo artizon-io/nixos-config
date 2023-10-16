@@ -1,11 +1,10 @@
+# Font modules
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/fonts
+# https://nixos.wiki/wiki/Fonts
+
 { config, options, pkgs, inputs, ... }:
 
 {
-  # Locale
-  time.timeZone = "Asia/Hong_Kong";
-  i18n.defaultLocale = "en_HK.UTF-8";
-
-  # Fonts
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
@@ -13,7 +12,7 @@
       noto-fonts-cjk
       noto-fonts-emoji
       (nerdfonts.override {
-      	fonts = [ "FiraCode" "DroidSansMono" ];
+        fonts = [ "FiraCode" "DroidSansMono" ];
       })
     ];
     fontconfig = {
@@ -30,14 +29,5 @@
         ];
       };
     };
-  };
-
-  # Input
-  i18n.inputMethod = {
-    enabled = "ibus";
-    ibus.engines = with pkgs.ibus-engines; [
-      libpinyin
-      rime
-    ];
   };
 }

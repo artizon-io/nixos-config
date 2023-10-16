@@ -6,14 +6,19 @@
   # Nix "derivation" function reference
   # https://nixos.org/manual/nix/stable/language/derivations.html
 
+  # nixos-rebuild CLI
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh
+
+  # nix build CLI
+  # https://github.com/NixOS/nix/blob/master/src/nix/build.cc
+
   description = "NixOS Config";
 
   # Flake input reference
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake#flake-inputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    # TODO: setup impermanence
-    # impermanence.url = "github:nix-community/impermanence";
+    impermanence.url = "github:nix-community/impermanence";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

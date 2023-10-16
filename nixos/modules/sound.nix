@@ -1,8 +1,11 @@
+# Pipewire module
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/pipewire/pipewire.nix
+# https://nixos.wiki/wiki/PipeWire
+
 { config, options, pkgs, inputs, ... }:
 
 {
   sound.enable = true;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

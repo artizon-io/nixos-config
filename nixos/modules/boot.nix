@@ -1,15 +1,17 @@
+# systemd-boot modules
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/systemd
+# https://nixos.wiki/wiki/Bootloader
+
 { config, options, pkgs, inputs, ... }:
 
 {
-  # TODO: migrate to GRUB2
-
-  # Bootloader systemd/grub
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-    enable = false;
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    supportedFilesystems = [ "ntfs" ]; # Actual fs; Not for initrd
   };
-
-  # Filesystems
-  boot.supportedFilesystems = [ "ntfs" ];
 }

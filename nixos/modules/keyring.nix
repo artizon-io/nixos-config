@@ -1,7 +1,7 @@
-# GNOME Keyring
-# https://wiki.gnome.org/Projects/GnomeKeyring/Pam
+# GNOME Keyring module
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gnome/gnome-keyring.nix
 { config, options, pkgs, inputs, ... }:
 
 {
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
 }

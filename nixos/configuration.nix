@@ -9,16 +9,24 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./modules/bluetooth.nix
     ./modules/boot.nix
+    ./modules/fonts.nix
     ./modules/graphics.nix
-    ./modules/localization.nix
+    ./modules/hyprland.nix
+    ./modules/i18n.nix
+    # ./modules/impermanence.nix
+    ./modules/keyring.nix
+    ./modules/locale.nix
     ./modules/network.nix
+    ./modules/nginx.nix
+    ./modules/openrgb.nix
+    ./modules/openssh.nix
     ./modules/printing.nix
     ./modules/sound.nix
     ./modules/tablet.nix
+    ./modules/tailscale.nix
     ./modules/user.nix
-    ./modules/keyring.nix
-    ./modules/bluetooth.nix
   ];
 
   # This value determines the NixOS release from which the default
@@ -39,9 +47,11 @@
 
   environment.systemPackages = with pkgs; [
     neovim
+    nil # Nix LSP
+    nixpkgs-fmt # Nix formatter
     wget
     git
-    curl 
+    curl
     fd
     ripgrep
     less
@@ -51,13 +61,13 @@
     file
     fzf
     killall
-    toybox  # Lightweight implementation of some Unix command line utils
+    toybox # Lightweight implementation of some Unix command line utils
   ];
 
   # Environment variables
   environment.sessionVariables = {
     # For Wayland
-    WLR_NO_HARDWARE_CURSORS = "1";  # Prevent cursor from going invisible
-    NIXOS_OZONE_WL = "1";  # Hint electron apps to use wayland
+    WLR_NO_HARDWARE_CURSORS = "1"; # Prevent cursor from going invisible
+    NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
   };
 }
