@@ -55,7 +55,7 @@
     in
     {
       nixosConfigurations = { 
-        default = nixpkgs.lib.nixosSystem {
+        nixos = nixpkgs.lib.nixosSystem {
           # nixpkgs/nixos/lib/default.nix
           # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/default.nix
           # nixpkgs/nixos/lib/eval-config.nix

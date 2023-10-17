@@ -8,11 +8,11 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ./modules/bluetooth.nix
     ./modules/boot.nix
     ./modules/fonts.nix
     ./modules/graphics.nix
+    ./modules/hardware.nix
     ./modules/hyprland.nix
     ./modules/i18n.nix
     # ./modules/impermanence.nix

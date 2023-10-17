@@ -2,5 +2,5 @@
 
 **Usage**
 ```bash
-sudo nixos-rebuild switch --flake ~/nixos-config/#default
+sudo nixos-rebuild switch --flake ~/nixos-config
 ```
