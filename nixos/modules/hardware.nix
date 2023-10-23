@@ -17,30 +17,20 @@
       device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
     };
-    # "/" = {
-    #   device = "none";
-    #   fsType = "tmpfs";
-    # };
-    # "/home/${user}" = {
-    #   device = "none";
-    #   fsType = "tmpfs";
-    # };
-    # "/nix" = {
-    #   device = "/dev/disk/by-label/NIXOS";
-    #   fsType = "ext4";
-    # };
-    # "/boot" = {
-    #   device = "/dev/disk/by-label/NIXOS-BOOT";
-    #   fsType = "vfat";
-    # };
-    # "/boot/efi" = {
-    #   device = "/boot";
-    #   fsType = "none";
-    #   options = [ "bind" ];
-    # };
-    "/boot/efi" = {
+
+    "/boot" = {
       device = "/dev/disk/by-label/NIXOS-BOOT";
       fsType = "vfat";
+    };
+    "/boot/efi" = {
+      device = "/boot";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+    "/mnt/a" = {
+      device = "/dev/disk/by-label/A";
+      fsType = "ntfs";
     };
   };
 

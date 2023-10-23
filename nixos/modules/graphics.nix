@@ -11,6 +11,10 @@
 # XDG modules
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/xdg
 
+# Hyprland module
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/hyprland.nix
+# https://nixos.wiki/wiki/Hyprland
+
 { config, options, pkgs, inputs, ... }:
 
 {
@@ -50,5 +54,11 @@
         pkgs.xdg-desktop-portal-gtk
       ];
     };
+  };
+
+  programs.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+    xwayland.enable = true;
   };
 }

@@ -10,22 +10,15 @@
   imports = [
     ./modules/bluetooth.nix
     ./modules/boot.nix
-    ./modules/fonts.nix
     ./modules/graphics.nix
     ./modules/hardware.nix
-    ./modules/hyprland.nix
     ./modules/i18n.nix
-    # ./modules/impermanence.nix
     ./modules/keyring.nix
-    ./modules/locale.nix
     ./modules/network.nix
-    ./modules/nginx.nix
     ./modules/openrgb.nix
-    ./modules/openssh.nix
     ./modules/printing.nix
     ./modules/sound.nix
     ./modules/tablet.nix
-    ./modules/tailscale.nix
     ./modules/user.nix
   ];
 
@@ -69,5 +62,7 @@
     # For Wayland
     WLR_NO_HARDWARE_CURSORS = "1"; # Prevent cursor from going invisible
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
+
+    SHELL = "zsh";
   };
 }

@@ -5,7 +5,6 @@
 
 {
   imports = [
-    # inputs.home-manager.nixosModules.home-manager
     # inputs.xremap-flake.nixosModules.default
   ];
 
@@ -29,7 +28,9 @@
         inputs.xremap-flake.packages.${system}.default
 
         # Wayland
-        waybar # Status bar
+        (waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        })) # Status bar
         dunst # Notification
         swww # Wallpaper
         rofi-wayland # App launcher
