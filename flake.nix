@@ -18,16 +18,12 @@
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake#flake-inputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    impermanence.url = "github:nix-community/impermanence";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     xremap-flake.url = "github:xremap/nix-flake";
+    nixpkgs_unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   # Parameters: set of the input flakes' outputs
-  outputs = { self, nixpkgs, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs_unstable, ... } @ inputs:
     let
       user = "sam";
       system = "x86_64-linux";
@@ -52,9 +48,19 @@
           allowUnfree = true;
         };
       };
+
+      pkgs_unstable = import nixpkgs_unstable {
+        inherit system;
+
+        # Config options reference
+        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix
+        config = {
+          allowUnfree = true;
+        };
+      };
     in
     {
-      nixosConfigurations = { 
+      nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           # nixpkgs/nixos/lib/default.nix
           # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/default.nix
@@ -64,11 +70,11 @@
           # https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules-parameters
 
           # An attribute set of module arguments that can be used in imports.
-          specialArgs = { inherit user system pkgs inputs; };
+          specialArgs = { inherit user system pkgs pkgs_unstable inputs; };
 
           # A list of modules. These are merged together to form the final configuration.
           modules = [
-            ./nixos/configuration.nix
+            ./configuration.nix
           ];
         };
       };

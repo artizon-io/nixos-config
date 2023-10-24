@@ -58,11 +58,12 @@
   ];
 
   # Environment variables
-  environment.sessionVariables = {
+  environment.variables = {
     # For Wayland
     WLR_NO_HARDWARE_CURSORS = "1"; # Prevent cursor from going invisible
     NIXOS_OZONE_WL = "1"; # Hint electron apps to use wayland
 
+    # Others
     SHELL = "zsh";
   };
 }

@@ -44,6 +44,10 @@
     xkbVariant = "";
     autoRepeatDelay = 120;
     autoRepeatInterval = 30;
+
+    displayManager = {
+      lightdm.enable = false;
+    };
   };
 
   xdg = {

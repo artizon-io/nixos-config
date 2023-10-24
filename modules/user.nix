@@ -1,7 +1,7 @@
 # Users groups module
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/users-groups.nix
 
-{ config, options, pkgs, user, system, inputs, ... }:
+{ config, options, pkgs, pkgs_unstable, user, system, inputs, ... }:
 
 {
   imports = [
@@ -16,15 +16,14 @@
         "wheel" # Enable sudo
       ];
       initialPassword = "password";
-      packages = with pkgs; [
+      packages = (with pkgs; [
+        # Others
         bottom
         croc
         zoxide
         zsh
         starship
         rustup
-        gh
-        supabase-cli
         inputs.xremap-flake.packages.${system}.default
 
         # Wayland
@@ -43,18 +42,25 @@
         wlsunset # Day/night gamma adjustment
 
         # Applications
-        brave
-        vscode
-        firefox-devedition
-        kitty
-        krita
         imv # Image viewer
         hyprpicker # Color picker
         clapper # Media/video player
         celluloid # Media/video player
         gnome.seahorse # GNOME keyring GUI
         helvum # Pipewire GUI
-      ];
+
+      ]) ++ (with pkgs_unstable; [
+        # Others (unstable)
+        supabase-cli
+        gh
+
+        # Applications (unstable)
+        brave
+        vscode
+        firefox-devedition
+        kitty
+        krita
+      ]);
     };
   };
 }
