@@ -53,6 +53,8 @@
     lf
     file
     fzf
+    delta # Code diff
+    exa # ls replacement
     killall
     toybox # Lightweight implementation of some Unix command line utils
   ];

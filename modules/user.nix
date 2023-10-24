@@ -4,10 +4,6 @@
 { config, options, pkgs, pkgs_unstable, user, system, inputs, ... }:
 
 {
-  imports = [
-    # inputs.xremap-flake.nixosModules.default
-  ];
-
   users.users = {
     ${user} = {
       isNormalUser = true;

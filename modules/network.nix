@@ -17,8 +17,7 @@
     networkmanager.enable = true;
     hostName = "nixos";
     firewall = {
-      allowedTCPPorts = [ 80 443 ];
-      allowedUDPPorts = [ ];
+      enable = false;
     };
   };
 
