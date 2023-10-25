@@ -10,6 +10,7 @@
       extraGroups = [
         "networkmanager"
         "wheel" # Enable sudo
+        "docker"
       ];
       initialPassword = "password";
       packages = (with pkgs; [
@@ -20,6 +21,7 @@
         zsh
         starship
         rustup
+        docker-client # Docker CLI
         inputs.xremap-flake.packages.${system}.default
 
         # Wayland

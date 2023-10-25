@@ -20,6 +20,7 @@
     ./modules/sound.nix
     ./modules/tablet.nix
     ./modules/user.nix
+    ./modules/docker.nix
   ];
 
   # This value determines the NixOS release from which the default
