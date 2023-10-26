@@ -54,6 +54,7 @@
     lf
     file
     fzf
+    unzip
     delta # Code diff
     exa # ls replacement
     killall
