@@ -54,10 +54,27 @@
 
         # Applications (unstable)
         brave
-        vscode
+        # vscode
         firefox-devedition
         kitty
         krita
+      ] ++ [
+        # Using vscode-1.81 for now
+        # https://github.com/microsoft/vscode/issues/184124
+        (import
+          (builtins.fetchGit {
+            name = "vscode-1.81";
+            url = "https://github.com/NixOS/nixpkgs/";
+            ref = "refs/heads/nixpkgs-unstable";
+            rev = "976fa3369d722e76f37c77493d99829540d43845";
+          })
+          {
+            inherit system;
+
+            config = {
+              allowUnfree = true;
+            };
+          }).vscode
       ]);
     };
   };
