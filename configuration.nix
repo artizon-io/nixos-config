@@ -4,7 +4,7 @@
 # nixpkgs 23.05 nix modules options
 # https://search.nixos.org/options?channel=23.05
 
-{ config, options, pkgs, inputs, ... }:
+{ config, options, pkgs, pkgs_unstable, inputs, user, ... }:
 
 {
   imports = [
@@ -19,9 +19,10 @@
     ./modules/printing.nix
     ./modules/sound.nix
     ./modules/tablet.nix
-    ./modules/user.nix
     ./modules/docker.nix
     # ./modules/keyremap.nix
+
+    "${inputs.impermanence}/nixos.nix"
   ];
 
   # This value determines the NixOS release from which the default
@@ -103,5 +104,124 @@
 
     # Others
     SHELL = "zsh";
+  };
+
+  users.users = {
+    ${user} = {
+      isNormalUser = true;
+      extraGroups = [
+        "networkmanager"
+        "wheel" # Enable sudo
+        "docker"
+      ];
+      initialPassword = "password";
+      packages = (with pkgs; [
+        # Others
+        bottom
+        croc
+        zoxide
+        zsh
+        starship
+        rustup
+        docker-client # Docker CLI
+
+        # Wayland
+        # (waybar.overrideAttrs (oldAttrs: {
+        #   mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        # })) # Status bar
+        # dunst # Notification
+        # swww # Wallpaper
+        # rofi-wayland # App launcher
+        # networkmanagerapplet # Network manager applet
+        # grim # Screenshot
+        # slurp # Select region (for e.g. screenshot)
+        # wl-clipboard # Clipboard CLI
+        # swappy # Screenshot editing tool
+        # cliphist # Clipboard manager
+        # wlsunset # Day/night gamma adjustment
+
+        # Applications
+        imv # Image viewer
+        hyprpicker # Color picker
+        clapper # Media/video player
+        celluloid # Media/video player
+        gnome.seahorse # GNOME keyring GUI
+        helvum # Pipewire GUI
+
+      ]) ++ (with pkgs_unstable; [
+        # Others (unstable)
+        supabase-cli
+        gh
+
+        # Applications (unstable)
+        brave
+        vscode
+        firefox-devedition
+        kitty
+        krita
+        spotify
+      ] ++ [
+        # Using vscode-1.81 for now
+        # https://github.com/microsoft/vscode/issues/184124
+        # (import
+        #   (builtins.fetchGit {
+        #     name = "vscode-1.81";
+        #     url = "https://github.com/NixOS/nixpkgs/";
+        #     ref = "refs/heads/nixpkgs-unstable";
+        #     rev = "976fa3369d722e76f37c77493d99829540d43845";
+        #   })
+        #   {
+        #     inherit system;
+
+        #     config = {
+        #       allowUnfree = true;
+        #     };
+        #   }).vscode
+      ]);
+    };
+  };
+
+  environment.persistence."/persist" = {
+    # bind mounted from e.g. /persist/etc/nixos to /etc/nixos
+    directories = [
+      "/etc/nixos"
+      "/etc/NetworkManager"
+      "/var/lib/bluetooth"
+      "/var/log"
+      "/var/lib"
+    ];
+    files = [
+      #  NOTE: if you persist /var/log directory,  you should persist /etc/machine-id as well
+      #  otherwise it will affect disk usage of log service
+      "/etc/machine-id"
+      {
+        file = "/etc/nix/id_rsa";
+        parentDirectory = { mode = "u=rwx,g=,o="; };
+      }
+    ];
+    hideMounts = false;
+    users.${user} = {
+      directories = [
+        "Downloads"
+        { directory = ".gnupg"; mode = "0700"; }
+        { directory = ".ssh"; mode = "0700"; }
+        { directory = ".nixops"; mode = "0700"; }
+        { directory = ".local/share/keyrings"; mode = "0700"; }
+        ".local"
+        ".warp"
+        ".git"
+        ".config"
+        ".gitmodules"
+        ".vscode"
+      ];
+      files = [
+        "README.md"
+        ".gitignore"
+        ".gitconfig"
+        ".zshrc"
+        ".zprofile"
+        "INSTRUCTIONS.md"
+      ];
+    };
   };
 }

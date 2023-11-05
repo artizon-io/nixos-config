@@ -18,8 +18,10 @@
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake#flake-inputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    xremap-flake.url = "github:xremap/nix-flake";
+    # xremap-flake.url = "github:xremap/nix-flake";
     nixpkgs_unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # https://nixos.wiki/wiki/Impermanence
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   # Parameters: set of the input flakes' outputs

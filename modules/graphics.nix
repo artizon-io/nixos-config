@@ -23,6 +23,8 @@
     open = false; # Use propritary version of the kernel module
     nvidiaSettings = true; # Enable NVidia settings menu
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
   };
 
   systemd.services.nvidia-control-devices = {
