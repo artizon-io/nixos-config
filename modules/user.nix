@@ -22,7 +22,6 @@
         starship
         rustup
         docker-client # Docker CLI
-        inputs.xremap-flake.packages.${system}.default
 
         # Wayland
         (waybar.overrideAttrs (oldAttrs: {
@@ -58,6 +57,7 @@
         firefox-devedition
         kitty
         krita
+        spotify
       ] ++ [
         # Using vscode-1.81 for now
         # https://github.com/microsoft/vscode/issues/184124

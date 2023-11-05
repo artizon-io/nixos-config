@@ -21,6 +21,7 @@
     ./modules/tablet.nix
     ./modules/user.nix
     ./modules/docker.nix
+    ./modules/keyremap.nix
   ];
 
   # This value determines the NixOS release from which the default
@@ -40,7 +41,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neovim
+    vim
     nil # Nix LSP
     nixpkgs-fmt # Nix formatter
     wget
