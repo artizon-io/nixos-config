@@ -45,24 +45,34 @@
     autoRepeatDelay = 180;
     autoRepeatInterval = 30;
 
+    # For wayland
+    # displayManager = {
+    #   lightdm.enable = false;
+    # };
+
     displayManager = {
-      lightdm.enable = false;
+      gdm.enable = true;
+    };
+
+    desktopManager = {
+      gnome.enable = true;
     };
   };
 
-  xdg = {
-    # Portal (a framework for allowing desktop applications to use resources outside of their sandbox e.g. file picker)
-    portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
-  };
+  # xdg = {
+  #   # Portal (a framework for allowing desktop applications to use resources outside of their sandbox e.g. file picker)
+  #   # For wayland
+  #   portal = {
+  #     enable = true;
+  #     extraPortals = [
+  #       pkgs.xdg-desktop-portal-gtk
+  #     ];
+  #   };
+  # };
 
-  programs.hyprland = {
-    enable = true;
-    nvidiaPatches = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   nvidiaPatches = true;
+  #   xwayland.enable = true;
+  # };
 }

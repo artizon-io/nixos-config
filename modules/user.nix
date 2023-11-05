@@ -24,19 +24,19 @@
         docker-client # Docker CLI
 
         # Wayland
-        (waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        })) # Status bar
-        dunst # Notification
-        swww # Wallpaper
-        rofi-wayland # App launcher
-        networkmanagerapplet # Network manager applet
-        grim # Screenshot
-        slurp # Select region (for e.g. screenshot)
-        wl-clipboard # Clipboard CLI
-        swappy # Screenshot editing tool
-        cliphist # Clipboard manager
-        wlsunset # Day/night gamma adjustment
+        # (waybar.overrideAttrs (oldAttrs: {
+        #   mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        # })) # Status bar
+        # dunst # Notification
+        # swww # Wallpaper
+        # rofi-wayland # App launcher
+        # networkmanagerapplet # Network manager applet
+        # grim # Screenshot
+        # slurp # Select region (for e.g. screenshot)
+        # wl-clipboard # Clipboard CLI
+        # swappy # Screenshot editing tool
+        # cliphist # Clipboard manager
+        # wlsunset # Day/night gamma adjustment
 
         # Applications
         imv # Image viewer
@@ -53,7 +53,7 @@
 
         # Applications (unstable)
         brave
-        # vscode
+        vscode
         firefox-devedition
         kitty
         krita
@@ -61,20 +61,20 @@
       ] ++ [
         # Using vscode-1.81 for now
         # https://github.com/microsoft/vscode/issues/184124
-        (import
-          (builtins.fetchGit {
-            name = "vscode-1.81";
-            url = "https://github.com/NixOS/nixpkgs/";
-            ref = "refs/heads/nixpkgs-unstable";
-            rev = "976fa3369d722e76f37c77493d99829540d43845";
-          })
-          {
-            inherit system;
+        # (import
+        #   (builtins.fetchGit {
+        #     name = "vscode-1.81";
+        #     url = "https://github.com/NixOS/nixpkgs/";
+        #     ref = "refs/heads/nixpkgs-unstable";
+        #     rev = "976fa3369d722e76f37c77493d99829540d43845";
+        #   })
+        #   {
+        #     inherit system;
 
-            config = {
-              allowUnfree = true;
-            };
-          }).vscode
+        #     config = {
+        #       allowUnfree = true;
+        #     };
+        #   }).vscode
       ]);
     };
   };
