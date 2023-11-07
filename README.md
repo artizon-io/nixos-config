@@ -1,8 +1,5 @@
 # NixOS Configuration
 
-No home manager no display manager no GRUB
-
-**Usage**
 ```bash
-sudo nixos-rebuild switch --flake ~/nixos-config
+sudo nixos-rebuild switch --flake <repo-url or path> [--install-bootloader]
 ```
