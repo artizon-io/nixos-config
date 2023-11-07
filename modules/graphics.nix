@@ -20,7 +20,7 @@
 {
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false; # Use propritary version of the kernel module
+    open = false; # Use propritary version of the kernel module instead of nouveau
     nvidiaSettings = true; # Enable NVidia settings menu
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     powerManagement.enable = false;
@@ -54,6 +54,7 @@
 
     displayManager = {
       gdm.enable = true;
+      startx.enable = true;
     };
 
     desktopManager = {
