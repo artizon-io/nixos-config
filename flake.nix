@@ -4,7 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    # xremap-flake.url = "github:xremap/nix-flake";
+    xremap-flake.url = "github:xremap/nix-flake";
     nixpkgs_unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # impermanence.url = "github:nix-community/impermanence";
   };
@@ -56,6 +56,7 @@
             ./configuration.nix
             ./locale.nix
             ./server.nix
+            ./keymap.nix
           ];
        };
      };

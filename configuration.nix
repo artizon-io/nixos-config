@@ -73,6 +73,9 @@
       exa # ls replacement
       killall
       toybox # Lightweight implementation of some Unix command line utils
+
+      gnomeExtensions.xremap # Allow xremap to fetch the focused app name using D-Bus
+      xorg.xev # X11 event viewer
     ]) ++ (with pkgs_unstable; [
       brave
       vscode
