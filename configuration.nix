@@ -9,6 +9,11 @@
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
+  nixpkgs.config.allowUnfree = true;
+
+  # https://nixos.wiki/wiki/Apropos
+  documentation.man.generateCaches = true; # Automatically build man page index cache when systemPackages change
+
   networking.networkmanager.enable = true;
 
   # Enable CUPS to print documents.
@@ -39,6 +44,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = (with pkgs; [
       vim
+      neovim
       git
       lf
       bottom
@@ -62,12 +68,15 @@
       wget
       curl
       fd
+      ffmpeg_6-headless # Video/audio manipulation
+      imagemagick # Image manipulation
       ripgrep
       less
       tree
       bat
       file
       fzf
+      xclip # X11 clipboard CLI
       unzip
       delta # Code diff
       exa # ls replacement
@@ -113,7 +122,7 @@
   environment.variables = {
     # SHELL = "zsh"; # Cause xserver to crash (startx/xinit)
     PAGER = "bat";
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
 
   # This value determines the NixOS release from which the default
