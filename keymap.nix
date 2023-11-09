@@ -13,8 +13,6 @@
   # https://github.com/xremap/nix-flake/#Configuration
   services.xremap = {
     userName = user;
-    # withHypr = true;
-    withGnome = true;
     serviceMode = "user";  # By default service is runs as root
     config = {
       # https://github.com/k0kubun/xremap#configuration

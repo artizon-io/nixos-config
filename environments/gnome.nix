@@ -44,7 +44,6 @@
 
   services.xremap = {
     withGnome = true;
-    serviceMode = "user";  # By default service is runs as root
     config = {
       modmap = [
         {

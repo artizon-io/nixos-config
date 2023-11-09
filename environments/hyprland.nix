@@ -49,4 +49,12 @@
 
     gnome.seahorse # GNOME keyring GUI
   ];
+
+  services.xremap = {
+    withHypr = true;
+    config = {
+      modmap = [];
+      keymap = [];
+    };
+  };
 }

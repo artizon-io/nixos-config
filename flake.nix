@@ -39,27 +39,40 @@
         };
       };
     in
-    {
+    rec {
+      # nixpkgs/nixos/lib/default.nix
+      # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/default.nix
+      # nixpkgs/nixos/lib/eval-config.nix
+      # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/eval-config.nix
+
+      # An attribute set of module arguments that can be used in imports.
+      specialArgs = { inherit user system pkgs pkgs_unstable inputs; };
+
+      # A list of modules. These are merged together to form the final configuration.
+      modules = [
+        ./hardware.nix
+        ./configuration.nix
+        ./locale.nix
+        ./server.nix
+        ./keymap.nix
+      ];
+
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          # nixpkgs/nixos/lib/default.nix
-          # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/default.nix
-          # nixpkgs/nixos/lib/eval-config.nix
-          # https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/eval-config.nix
+        gnome = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
 
-          # An attribute set of module arguments that can be used in imports.
-          specialArgs = { inherit user system pkgs pkgs_unstable inputs; };
-
-          # A list of modules. These are merged together to form the final configuration.
-          modules = [
-            ./hardware.nix
-            ./configuration.nix
-            ./locale.nix
-            ./server.nix
-            ./keymap.nix
+          modules = modules ++ [
             ./environments/gnome.nix
           ];
-       };
-     };
-   };
+        };
+
+        hyprland = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+
+          modules = modules ++ [
+            ./environments/hyprland.nix
+          ];
+        };
+      };
+    };
 }
