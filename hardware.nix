@@ -31,7 +31,12 @@
     fsType = "ntfs";
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    # Swap takes size of RAM but I have a large RAM
+    # {
+    #   device = "/dev/disk/by-label/swap";
+    # }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -71,18 +76,5 @@
     xkbVariant = "";
     autoRepeatDelay = 180;
     autoRepeatInterval = 30;
-
-    displayManager = {
-      gdm.enable = true;
-      startx.enable = true;
-      # lightdm.enable = true;
-    };
-
-    desktopManager = {
-      gnome.enable = true;
-    };
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 }

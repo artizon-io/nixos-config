@@ -76,15 +76,11 @@
       bat
       file
       fzf
-      xclip # X11 clipboard CLI
       unzip
       delta # Code diff
       exa # ls replacement
       killall
       toybox # Lightweight implementation of some Unix command line utils
-
-      gnomeExtensions.xremap # Allow xremap to fetch the focused app name using D-Bus
-      xorg.xev # X11 event viewer
     ]) ++ (with pkgs_unstable; [
       brave
       vscode
@@ -99,25 +95,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   ];
-
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
-    gnome-music
-    gnome-terminal
-    gedit # text editor
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
-    gnome-characters
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-  ]);
 
   environment.variables = {
     # SHELL = "zsh"; # Cause xserver to crash (startx/xinit)
@@ -139,5 +116,8 @@
 
   hardware.opentabletdriver.enable = false;
 
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
 }

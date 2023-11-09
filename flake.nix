@@ -57,6 +57,7 @@
             ./locale.nix
             ./server.nix
             ./keymap.nix
+            ./environments/gnome.nix
           ];
        };
      };
