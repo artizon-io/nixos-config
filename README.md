@@ -28,7 +28,6 @@ sudo nixos-rebuild switch --flake <repo-url or path> [--install-bootloader]
 
 **Common**
 
-- `nvim` lua modules cannot be resolved. I.e. `require("module")` doesn't work
 - Tablet can crash krita and opentablet causes `"initrd not found"`
 
 **Gnome**
@@ -39,8 +38,8 @@ sudo nixos-rebuild switch --flake <repo-url or path> [--install-bootloader]
 
 **Hyprland**
 
-- Spawning multiple windows of vscode can crash the whole vscode process. Forcing vscode to open under Xwayland suffers same problem as in gnome
+- Spawning multiple windows of vscode can crash the whole vscode process. Forcing vscode to open under Xwayland suffers same problem as in gnome. Workaround is to spawn new window from within existing window
 - Limited display manager options (only lighthdm available)
 - Rofi in a broken state if workspace is switched while rofi is opened
 - ibus not working; only fcitx5 works
-- xremap cannot gather the focused application's info (for app-specific keymaps)
+- xremap cannot gather the focused application's info (for app-specific keymaps) for hypr. With the `wlroot` feature it works for now

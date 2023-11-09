@@ -88,6 +88,11 @@
       kitty
       krita
       spotify
+      # slack
+      discord
+      # itch
+      # splice # AI soundtrack
+      blender
     ]);
   };
 

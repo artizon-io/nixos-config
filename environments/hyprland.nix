@@ -51,10 +51,14 @@
   ];
 
   services.xremap = {
-    withHypr = true;
+    # withHypr = true;
+    # https://github.com/xremap/nix-flake/issues/40
+    withWlroots = true;
     config = {
       modmap = [];
       keymap = [];
     };
   };
+
+  services.blueman.enable = true; # Bluetooth GUI
 }
