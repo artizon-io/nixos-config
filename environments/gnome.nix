@@ -12,9 +12,6 @@
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour

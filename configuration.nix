@@ -5,7 +5,7 @@
 
 {
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs_unstable.nixFlakes;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
@@ -28,43 +28,38 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    # media-session.enable = true;
   };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
     description = "${user}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = (with pkgs; [
+    packages = (with pkgs_unstable; [
       vim
       neovim
       git
+      pandoc # Universal markup converter e.g. latex <-> markdown <-> html ...
+      # texlive.combined.scheme-full # https://nixos.wiki/wiki/TexLive  Caution: download size ~= 3GB & install size ~= 6GB
+      ghostscript # PDF and PostScript interpreter (used by imagemagick for PDF manipulation)
+      gojq # Go implementation of jq, a JSON preprocessor
+      shellcheck # Shell scripts static analyzer
       lf
-      bottom
+      bottom # Top
+      nvitop # Performance monitor for nvidia
+      duf # Better df
+      tldr # Community man entries
       croc
       zoxide
       zsh
       starship
-      rustup
       docker-client # Docker CLI
-
-      imv # Image viewer
-      hyprpicker # Color picker
-      clapper # Media/video player
-      celluloid # Media/video player
-      gnome.seahorse # GNOME keyring GUI
-      helvum # Pipewire GUI
+      tmux
+      ncdu # Better du with ncurses
+      dogdns # DNS client like dig
+      xh # Better curl
       supabase-cli
       gh
-      nil # Nix LSP
-      nixpkgs-fmt # Nix formatter
       wget
       curl
       fd
@@ -78,34 +73,108 @@
       fzf
       unzip
       delta # Code diff
-      exa # ls replacement
+      eza # ls replacement (maintain fork of exa)
       killall
       toybox # Lightweight implementation of some Unix command line utils
-    ]) ++ (with pkgs_unstable; [
+      cargo-tauri
+
       brave
       vscode
       firefox-devedition
       kitty
       krita
       spotify
-      # slack
       discord
-      # itch
-      # splice # AI soundtrack
       blender
+      imv # Image viewer
+      hyprpicker # Color picker
+      clapper # Media/video player
+      celluloid # Media/video player
+      gnome.seahorse # GNOME keyring GUI
+      helvum # Pipewire GUI
+    ]) ++ (with pkgs_unstable; [
+      # Python
+      python311 # Required for kitty-save script
+      nodePackages.pyright
+      ruff # Linter + formatter
+      ruff-lsp # Unofficial LSP implementation for ruff
+
+      # Rust
+      rust-analyzer
+      rustup
+
+      # C/C++
+      # https://discourse.nixos.org/u/jonringer
+      # https://discourse.nixos.org/t/get-clangd-to-find-standard-headers-in-nix-shell/11268/4
+      # gcc13 # Apparently clangd is not well supported
+      # llvmPackages_16.clang-unwrapped # Includes clang tools e.g. clangd
+      # ccls # C++ language server clang/gcc
+      clang
+      pkg-config
+      gnumake
+      clang-tools_16
+      bear # Generate compilation database for clang
+      clangStdenv # Default build environment for Unix packages
+      cmake
+      neocmakelsp # Growing CMake LSP
+ 
+      # Configuration (toml, json, yaml)
+      taplo # Unofficial TOML language server, from tamasfe
+
+      # Web
+      nodejs_20 # Required for copilot.nvim
+      nodePackages.typescript-language-server
+      vscode-langservers-extracted # JSON, HTML, CSS, ESLint
+      nodePackages.tailwindcss
+      nodePackages.prettier
+      # TODO: https://github.com/tailwindlabs/tailwindcss-intellisense
+      # TODO: https://github.com/mdx-js/mdx-analyzer
+
+      # Zig
+      zig
+      zls # Zig LSP + language server
+
+      # Bash
+      nodePackages.bash-language-server # Requires shellcheck (or explainshell)
+
+      # Dotnet / C#
+      dotnet-sdk_8
+      dotnet-runtime_8
+      dotnet-aspnetcore_8
+      omnisharp-roslyn # Unofficial
+
+      # Docker
+      docker-compose-language-service # By Microsoft
+
+      # Lua
+      lua-language-server # By sumneko
+
+      # Terraform
+      terraform
+      terraform-ls # Official (still infant)
+      tflint
+
+      # Go
+      go
+      gopls # Go official language server
+
+      # Nix
+      nil # Unofficial Nix LSP
+      nixpkgs-fmt # Unofficial Nix formatter
+
+      # Swift
+      swift
+      sourcekit-lsp # Apple's LSP implementation for Swift and Objective-C
     ]);
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs_unstable; [
   ];
 
-  environment.variables = {
-    # SHELL = "zsh"; # Cause xserver to crash (startx/xinit)
-    PAGER = "bat";
-    EDITOR = "nvim";
-  };
+  # Can interfere with the system. E.g. startx/xinit relies on SHELL
+  environment.variables = {};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -123,6 +192,6 @@
 
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
   };
 }

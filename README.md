@@ -24,11 +24,12 @@ sudo nixos-rebuild switch --flake <repo-url or path> [--install-bootloader]
 - `nix-collect-garbage` if boot partition is full
 - vim's `:tabe` and `:tabp` `:tabn` for preserving paste-bin/register when stuck with CLI
 
-## Issues
+## Issues/TODO
 
 **Common**
 
 - Tablet can crash krita and opentablet causes `"initrd not found"`
+- Wireguard not configured yet. For now interface `.conf` file (generated from https://github.com/wg-easy/wg-easy) can be loaded by network manager with `nmcli connection import type wireguard file <path>`
 
 **Gnome**
 
@@ -43,3 +44,5 @@ sudo nixos-rebuild switch --flake <repo-url or path> [--install-bootloader]
 - Rofi in a broken state if workspace is switched while rofi is opened
 - ibus not working; only fcitx5 works
 - xremap cannot gather the focused application's info (for app-specific keymaps) for hypr. With the `wlroot` feature it works for now
+- Bluetooth not working
+- Waybar not configured. Ideally should have system tray icons for network manager and blueman and so on

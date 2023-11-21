@@ -7,9 +7,6 @@
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # A framework for allowing desktop applications to use resources outside of their sandbox e.g. file picker
   xdg.portal = {
     enable = true;
@@ -48,6 +45,7 @@
     hyprpicker # Color picker
 
     gnome.seahorse # GNOME keyring GUI
+    # blueman # Bluetooth manager GUI
   ];
 
   services.xremap = {
@@ -59,6 +57,4 @@
       keymap = [];
     };
   };
-
-  services.blueman.enable = true; # Bluetooth GUI
 }
