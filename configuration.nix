@@ -36,14 +36,8 @@
     description = "${user}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = (with pkgs_unstable; [
-      vim
       neovim
       git
-      pandoc # Universal markup converter e.g. latex <-> markdown <-> html ...
-      # texlive.combined.scheme-full # https://nixos.wiki/wiki/TexLive  Caution: download size ~= 3GB & install size ~= 6GB
-      ghostscript # PDF and PostScript interpreter (used by imagemagick for PDF manipulation)
-      gojq # Go implementation of jq, a JSON preprocessor
-      shellcheck # Shell scripts static analyzer
       lf
       bottom # Top
       nvitop # Performance monitor for nvidia
@@ -52,10 +46,11 @@
       croc
       zoxide
       zsh
+      bash
       starship
       docker-client # Docker CLI
       tmux
-      ncdu # Better du with ncurses
+      godu # Better du with go (lf-like interface)
       dogdns # DNS client like dig
       xh # Better curl
       supabase-cli
@@ -63,40 +58,55 @@
       wget
       curl
       fd
-      ffmpeg_6-headless # Video/audio manipulation
-      imagemagick # Image manipulation
       ripgrep
       less
       tree
       bat
       file
       fzf
+      zip
       unzip
       delta # Code diff
       eza # ls replacement (maintain fork of exa)
       killall
-      toybox # Lightweight implementation of some Unix command line utils
+      toybox # Lightweight implementation of some Unix command line utils. Run toybox to see list of available utils
       cargo-tauri
+      lsof # List open files (everything is a file incl. dev and sockets)
+      netcat-gnu # Network
+      socat # netcat++
+      gnused
+      gnutar
+      rsync # Incremental/delta file transfer (local/remote)
+      syncthing # Bi-directional or other patterns rsync with web UI
 
       brave
       vscode
       firefox-devedition
       kitty
-      krita
       spotify
-      discord
-      blender
       imv # Image viewer
-      hyprpicker # Color picker
-      clapper # Media/video player
       celluloid # Media/video player
-      gnome.seahorse # GNOME keyring GUI
       helvum # Pipewire GUI
+    ]) ++ (with pkgs_unstable; [
+      pandoc # Universal markup converter e.g. latex <-> markdown <-> html ...
+      # texlive.combined.scheme-full # https://nixos.wiki/wiki/TexLive  Caution: download size ~= 3GB & install size ~= 6GB
+      ghostscript # PDF and PostScript interpreter (used by imagemagick for PDF manipulation)
+      gojq # Go implementation of jq, a JSON preprocessor
+      skim # Rust alternative to fzf w/ pre-select
+      chafa # Image/graphics in terminal w/ the ANSI X3.64 standard
+      ffmpeg_6-headless # Video/audio manipulation
+      imagemagick # Image manipulation
+
+      discord
+      krita
+      clapper # Media/video player
+      blender
+      neovide # Neovim GUI in rust w/ animations & ligatures
     ]) ++ (with pkgs_unstable; [
       # Python
       python311 # Required for kitty-save script
       nodePackages.pyright
-      ruff # Linter + formatter
+      ruff # Linter + formatter. Replaces isort + black & flake8
       ruff-lsp # Unofficial LSP implementation for ruff
 
       # Rust
@@ -127,15 +137,16 @@
       vscode-langservers-extracted # JSON, HTML, CSS, ESLint
       nodePackages.tailwindcss
       nodePackages.prettier
-      # TODO: https://github.com/tailwindlabs/tailwindcss-intellisense
-      # TODO: https://github.com/mdx-js/mdx-analyzer
+      tailwindcss-language-server # Official
 
       # Zig
       zig
       zls # Zig LSP + language server
 
       # Bash
+      shellcheck # Shell scripts static analyzer
       nodePackages.bash-language-server # Requires shellcheck (or explainshell)
+      shfmt # Formatter
 
       # Dotnet / C#
       dotnet-sdk_8
@@ -148,6 +159,8 @@
 
       # Lua
       lua-language-server # By sumneko
+      luajitPackages.luacheck # Static analyzer
+      stylua # Opinionated formatter
 
       # Terraform
       terraform
@@ -157,14 +170,23 @@
       # Go
       go
       gopls # Go official language server
+      golangci-lint # Unofficial linter
+      golangci-lint-langserver
 
       # Nix
       nil # Unofficial Nix LSP
       nixpkgs-fmt # Unofficial Nix formatter
 
       # Swift
+      # swift # Fix below
+      # sourcekit-lsp # Apple's LSP implementation for Swift and Objective-C
+
+      # Databases
+      postgres-lsp # By supabase
+
+    ]) ++ (with pkgs; [
       swift
-      sourcekit-lsp # Apple's LSP implementation for Swift and Objective-C
+      sourcekit-lsp
     ]);
   };
 
